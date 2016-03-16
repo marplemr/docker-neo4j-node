@@ -1,0 +1,22 @@
+node:
+  build: ../../
+  dockerfile: Dockerfile-dev
+  links:
+    - neo4j
+  ports:
+    - "3000:3000"
+  environment:
+    PORT: 3000
+  privileged: true
+  restart: always
+
+neo4j:
+  build: ../../neo4j
+  ports:
+    - "7474:7474"
+    - "1337:1337"
+  volumes:
+    - ../../neo4j-dumps:/neo4j-dumps
+  environment:
+    NEO4J_AUTH: neo4j:cleocatra1
+  restart: always

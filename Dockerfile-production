@@ -1,0 +1,16 @@
+FROM node:argon
+
+# Create app directory
+RUN mkdir -p /usr/src/app
+RUN mkdir -p /neo4j-dumps
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY server/ /usr/src/app/
+
+# Install entrypoint
+COPY bin/entrypoint.sh /entrypoint.sh
+RUN chmod 775 /entrypoint.sh
+RUN npm install
+
+CMD  /entrypoint.sh
